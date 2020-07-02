@@ -6,11 +6,18 @@ export class HungryBear {
     this.foodLevel = 10;
     this.difficulty = difficulty;
     this.level = 1;
+    this.happy = true;
   }
 
   increaseLevel(levelIncrease = 1){
     this.level+= levelIncrease;
     this.difficulties[this.difficulty]["time"] -= this.level * 50;
+  }
+
+  setMood() {//should be created halfway between each hunger interval
+    setInterval(() => {
+      this.happy = false;
+    }, this.difficulties[this.difficulty]["time"]);
   }
 
   setHunger() {
@@ -20,11 +27,15 @@ export class HungryBear {
   }
 
   didYouGetEaten() {
-    if (this.foodLevel > 0) {
+    if (this.foodLevel > 0 || this.happy === false) {
       return false;
     } else {
       return true;
     }
+  }
+
+  pet(){
+    this.happy = true;
   }
 
   feed() {

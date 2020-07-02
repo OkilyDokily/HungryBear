@@ -54,6 +54,21 @@ describe('Fuzzy, medium', () => {
     jest.advanceTimersByTime(801);
     expect(fuzzy.foodLevel).toEqual(10);
   });
+
+
+  test('handles mood and petting correctly', () => {
+    jest.advanceTimersByTime(500);
+    fuzzy.setMood();
+    jest.advanceTimersByTime(1001);
+    expect(fuzzy.happy).toEqual(false);
+  });
+
+  test('handles mood and petting correctly', () => {
+    jest.advanceTimersByTime(500);
+    fuzzy.setMood();
+    jest.advanceTimersByTime(999);
+    expect(fuzzy.happy).toEqual(true);
+  });
 });
 
 
