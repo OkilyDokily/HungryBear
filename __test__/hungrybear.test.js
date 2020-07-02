@@ -5,7 +5,7 @@ describe('Fuzzy', () => {
   let fuzzy;
 
   beforeEach(function() {
-    fuzzy = new HungryBear("Fuzzy");
+    fuzzy = new HungryBear("Fuzzy", "medium");
     fuzzy.setHunger();
   });
 
