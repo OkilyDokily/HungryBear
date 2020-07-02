@@ -1,6 +1,6 @@
 import { HungryBear } from './../src/hungrybear.js';
 
-describe('Fuzzy', () => {
+describe('Fuzzy, medium', () => {
   jest.useFakeTimers();
   let fuzzy;
 
@@ -36,6 +36,22 @@ describe('Fuzzy', () => {
   test('should have a food level of ten if it is fed', () => {
     jest.advanceTimersByTime(9001);
     fuzzy.feed();
+    expect(fuzzy.foodLevel).toEqual(10);
+  });
+
+  test('increases levels correctly', () => {
+    fuzzy.increaseLevel();
+    jest.clearAllTimers();
+    fuzzy.setHunger();
+    jest.advanceTimersByTime(901);
+    expect(fuzzy.foodLevel).toEqual(9);
+  });
+
+  test('increases levels correctly', () => {
+    fuzzy.increaseLevel();
+    jest.clearAllTimers();
+    fuzzy.setHunger();
+    jest.advanceTimersByTime(801);
     expect(fuzzy.foodLevel).toEqual(10);
   });
 });
@@ -79,6 +95,22 @@ describe('Fuzzy, easy', () => {
     fuzzy.feed();
     expect(fuzzy.foodLevel).toEqual(15);
   });
+
+  test('increases levels correctly', () => {
+    fuzzy.increaseLevel();
+    jest.clearAllTimers();
+    fuzzy.setHunger();
+    jest.advanceTimersByTime(1401);
+    expect(fuzzy.foodLevel).toEqual(9);
+  });
+
+  test('increases levels correctly', () => {
+    fuzzy.increaseLevel();
+    jest.clearAllTimers();
+    fuzzy.setHunger();
+    jest.advanceTimersByTime(1301);
+    expect(fuzzy.foodLevel).toEqual(10);
+  });
 });
 
 describe('Fuzzy, hard', () => {
@@ -118,5 +150,21 @@ describe('Fuzzy, hard', () => {
     jest.advanceTimersByTime(9001);
     fuzzy.feed();
     expect(fuzzy.foodLevel).toEqual(5);
+  });
+
+  test('increases levels correctly', () => {
+    fuzzy.increaseLevel();
+    jest.clearAllTimers();
+    fuzzy.setHunger();
+    jest.advanceTimersByTime(401);
+    expect(fuzzy.foodLevel).toEqual(9);
+  });
+
+  test('increases levels correctly', () => {
+    fuzzy.increaseLevel();
+    jest.clearAllTimers();
+    fuzzy.setHunger();
+    jest.advanceTimersByTime(301);
+    expect(fuzzy.foodLevel).toEqual(10);
   });
 });

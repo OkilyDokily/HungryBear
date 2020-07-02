@@ -8,9 +8,9 @@ export class HungryBear {
     this.level = 1;
   }
 
-  increaseLevel(){
-    this.level++;
-    this.difficulties[this.difficulty]["time"] -= this.level *50;
+  increaseLevel(levelIncrease = 1){
+    this.level+= levelIncrease;
+    this.difficulties[this.difficulty]["time"] -= this.level * 50;
   }
 
   setHunger() {
