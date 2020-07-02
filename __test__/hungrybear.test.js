@@ -126,6 +126,20 @@ describe('Fuzzy, easy', () => {
     jest.advanceTimersByTime(1301);
     expect(fuzzy.foodLevel).toEqual(10);
   });
+
+  test('handles mood and petting correctly', () => {
+    jest.advanceTimersByTime(7500);
+    fuzzy.setMood();
+    jest.advanceTimersByTime(1501);
+    expect(fuzzy.happy).toEqual(false);
+  });
+
+  test('handles mood and petting correctly', () => {
+    jest.advanceTimersByTime(500);
+    fuzzy.setMood();
+    jest.advanceTimersByTime(1499);
+    expect(fuzzy.happy).toEqual(true);
+  });
 });
 
 describe('Fuzzy, hard', () => {
@@ -181,5 +195,19 @@ describe('Fuzzy, hard', () => {
     fuzzy.setHunger();
     jest.advanceTimersByTime(301);
     expect(fuzzy.foodLevel).toEqual(10);
+  });
+
+  test('handles mood and petting correctly', () => {
+    jest.advanceTimersByTime(250);
+    fuzzy.setMood();
+    jest.advanceTimersByTime(501);
+    expect(fuzzy.happy).toEqual(false);
+  });
+
+  test('handles mood and petting correctly', () => {
+    jest.advanceTimersByTime(250);
+    fuzzy.setMood();
+    jest.advanceTimersByTime(499);
+    expect(fuzzy.happy).toEqual(true);
   });
 });
