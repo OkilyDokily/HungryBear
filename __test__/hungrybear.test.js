@@ -1,12 +1,12 @@
-import { HungryBear } from './../src/hungrybear.js';
+import { Game } from "../src/game.js";
 
 describe('Fuzzy, medium', () => {
   jest.useFakeTimers();
-  let fuzzy;
+  let game;
 
   beforeEach(function() {
-    fuzzy = new HungryBear("Fuzzy", "medium");
-    fuzzy.setHunger();
+    game = new Game("Fuzzy", "medium")
+    game.startGame();
   });
 
   afterEach(function() {
@@ -14,71 +14,66 @@ describe('Fuzzy, medium', () => {
   });
 
   test('should have a name and a food level of 10 when it is created', () => {
-    expect(fuzzy.name).toEqual("Fuzzy");
-    expect(fuzzy.foodLevel).toEqual(10);
+    expect(game.hungryBear.name).toEqual("Fuzzy");
+    expect(game.hungryBear.foodLevel).toEqual(10);
   });
 
-  test('should have a food level of 7 after 3001 milliseconds', () => {
-    jest.advanceTimersByTime(3001);
-    expect(fuzzy.foodLevel).toEqual(7);
+  test('should have a food level of 9 after 1001 milliseconds', () => {
+    jest.advanceTimersByTime(1001);
+    expect(game.hungryBear.foodLevel).toEqual(9);
   });
 
   test('should get very hungry if the food level drops below zero', () => {
-    fuzzy.foodLevel = 0;
-    expect(fuzzy.didYouGetEaten()).toEqual(true);
+    game.hungryBear.foodLevel = 0;
+    expect(game.hungryBear.didYouGetEaten()).toEqual(true);
   });
 
   test('should get very hungry if 10 seconds pass without feeding', () => {
     jest.advanceTimersByTime(10001);
-    expect(fuzzy.didYouGetEaten()).toEqual(true);
+    expect(game.hungryBear.didYouGetEaten()).toEqual(true);
   });
 
   test('should have a food level of ten if it is fed', () => {
     jest.advanceTimersByTime(9001);
-    fuzzy.feed();
-    expect(fuzzy.foodLevel).toEqual(10);
+    game.hungryBear.feed();
+    expect(game.hungryBear.foodLevel).toEqual(10);
   });
 
   test('increases levels correctly', () => {
-    fuzzy.increaseLevel();
-    jest.clearAllTimers();
-    fuzzy.setHunger();
+    game.startGame();
+    game.hungryBear.increaseLevel();
     jest.advanceTimersByTime(901);
-    expect(fuzzy.foodLevel).toEqual(9);
+    expect(game.hungryBear.foodLevel).toEqual(9);
   });
 
   test('increases levels correctly', () => {
-    fuzzy.increaseLevel();
-    jest.clearAllTimers();
-    fuzzy.setHunger();
-    jest.advanceTimersByTime(801);
-    expect(fuzzy.foodLevel).toEqual(10);
+    game.startGame();
+    game.hungryBear.increaseLevel();
+    jest.advanceTimersByTime(899);
+    expect(game.hungryBear.foodLevel).toEqual(10);
   });
 
 
-  test('handles mood and petting correctly', () => {
-    jest.advanceTimersByTime(500);
-    fuzzy.setMood();
-    jest.advanceTimersByTime(1001);
-    expect(fuzzy.happy).toEqual(false);
+  test("see if game ends if it hasn't been petted after 5001 ms", () => {
+    jest.advanceTimersByTime(5001);
+    expect(game.isGameOver).toEqual(true);
   });
 
-  test('handles mood and petting correctly', () => {
-    jest.advanceTimersByTime(500);
-    fuzzy.setMood();
-    jest.advanceTimersByTime(999);
-    expect(fuzzy.happy).toEqual(true);
+  test("see if game doesn't end if it hasn't been petted after 4999 ms", () => {
+    jest.advanceTimersByTime(4999);
+    expect(game.isGameOver).toEqual(false);
   });
+
 });
 
 
 describe('Fuzzy, easy', () => {
   jest.useFakeTimers();
-  let fuzzy;
+  let game;
 
   beforeEach(function() {
-    fuzzy = new HungryBear("Fuzzy", "easy");
-    fuzzy.setHunger();
+    game = new Game("Fuzzy", "easy")
+    game.startGame();
   });
 
   afterEach(function() {
@@ -86,69 +81,56 @@ describe('Fuzzy, easy', () => {
   });
 
   test('should have a name and a food level of 10 when it is created', () => {
-    expect(fuzzy.name).toEqual("Fuzzy");
-    expect(fuzzy.foodLevel).toEqual(10);
+    expect(game.hungryBear.name).toEqual("Fuzzy");
+    expect(game.hungryBear.foodLevel).toEqual(10);
   });
 
   test('should have a food level of 7 after 4501 milliseconds', () => {
     jest.advanceTimersByTime(4501);
-    expect(fuzzy.foodLevel).toEqual(7);
+    expect(game.hungryBear.foodLevel).toEqual(7);
   });
 
-  test('should get very hungry if the food level drops below zero', () => {
-    fuzzy.foodLevel = 0;
-    expect(fuzzy.didYouGetEaten()).toEqual(true);
+  test('should get very hungry if the food level drops to zero', () => {
+    game.hungryBear.foodLevel = 0;
+    expect(game.hungryBear.didYouGetEaten()).toEqual(true);
   });
 
   test('should get very hungry if 15 seconds pass without feeding', () => {
     jest.advanceTimersByTime(15001);
-    expect(fuzzy.didYouGetEaten()).toEqual(true);
+    expect(game.hungryBear.didYouGetEaten()).toEqual(true);
   });
 
   test('should have a food level of 15 if it is fed', () => {
-    jest.advanceTimersByTime(9001);
-    fuzzy.feed();
-    expect(fuzzy.foodLevel).toEqual(15);
+    jest.advanceTimersByTime(14001);
+    game.hungryBear.feed();
+    expect(game.hungryBear.foodLevel).toEqual(15);
   });
 
   test('increases levels correctly', () => {
-    fuzzy.increaseLevel();
-    jest.clearAllTimers();
-    fuzzy.setHunger();
+    game.startGame();
+    game.hungryBear.increaseLevel();
+  
     jest.advanceTimersByTime(1401);
-    expect(fuzzy.foodLevel).toEqual(9);
+    expect(game.hungryBear.foodLevel).toEqual(9);
   });
 
   test('increases levels correctly', () => {
-    fuzzy.increaseLevel();
-    jest.clearAllTimers();
-    fuzzy.setHunger();
+    game.startGame();
+    game.hungryBear.increaseLevel();
     jest.advanceTimersByTime(1301);
-    expect(fuzzy.foodLevel).toEqual(10);
+    expect(game.hungryBear.foodLevel).toEqual(10);
   });
 
-  test('handles mood and petting correctly', () => {
-    jest.advanceTimersByTime(7500);
-    fuzzy.setMood();
-    jest.advanceTimersByTime(1501);
-    expect(fuzzy.happy).toEqual(false);
-  });
 
-  test('handles mood and petting correctly', () => {
-    jest.advanceTimersByTime(500);
-    fuzzy.setMood();
-    jest.advanceTimersByTime(1499);
-    expect(fuzzy.happy).toEqual(true);
-  });
 });
 
 describe('Fuzzy, hard', () => {
   jest.useFakeTimers();
-  let fuzzy;
+  let game;
 
   beforeEach(function() {
-    fuzzy = new HungryBear("Fuzzy", "hard");
-    fuzzy.setHunger();
+    game = new Game("Fuzzy", "hard")
+    game.startGame();
   });
 
   afterEach(function() {
@@ -156,58 +138,43 @@ describe('Fuzzy, hard', () => {
   });
 
   test('should have a name and a food level of 10 when it is created', () => {
-    expect(fuzzy.name).toEqual("Fuzzy");
-    expect(fuzzy.foodLevel).toEqual(10);
+    expect(game.hungryBear.name).toEqual("Fuzzy");
+    expect(game.hungryBear.foodLevel).toEqual(10);
   });
 
   test('should have a food level of 7 after 1501 milliseconds', () => {
     jest.advanceTimersByTime(1501);
-    expect(fuzzy.foodLevel).toEqual(7);
+    expect(game.hungryBear.foodLevel).toEqual(7);
   });
 
   test('should get very hungry if the food level drops below zero', () => {
-    fuzzy.foodLevel = 0;
-    expect(fuzzy.didYouGetEaten()).toEqual(true);
+    game.hungryBear.foodLevel = 0;
+    expect(game.hungryBear.didYouGetEaten()).toEqual(true);
   });
 
   test('should get very hungry if 5 seconds pass without feeding', () => {
     jest.advanceTimersByTime(5001);
-    expect(fuzzy.didYouGetEaten()).toEqual(true);
+    expect(game.hungryBear.didYouGetEaten()).toEqual(true);
   });
 
   test('should have a food level of 5 if it is fed', () => {
     jest.advanceTimersByTime(9001);
-    fuzzy.feed();
-    expect(fuzzy.foodLevel).toEqual(5);
+    game.hungryBear.feed();
+    expect(game.hungryBear.foodLevel).toEqual(5);
   });
 
   test('increases levels correctly', () => {
-    fuzzy.increaseLevel();
-    jest.clearAllTimers();
-    fuzzy.setHunger();
+    game.startGame();
+    game.hungryBear.increaseLevel();
     jest.advanceTimersByTime(401);
-    expect(fuzzy.foodLevel).toEqual(9);
+    expect(game.hungryBear.foodLevel).toEqual(9);
   });
 
   test('increases levels correctly', () => {
-    fuzzy.increaseLevel();
-    jest.clearAllTimers();
-    fuzzy.setHunger();
+    game.startGame();
+    game.hungryBear.increaseLevel();
     jest.advanceTimersByTime(301);
-    expect(fuzzy.foodLevel).toEqual(10);
+    expect(game.hungryBear.foodLevel).toEqual(10);
   });
 
-  test('handles mood and petting correctly', () => {
-    jest.advanceTimersByTime(250);
-    fuzzy.setMood();
-    jest.advanceTimersByTime(501);
-    expect(fuzzy.happy).toEqual(false);
-  });
-
-  test('handles mood and petting correctly', () => {
-    jest.advanceTimersByTime(250);
-    fuzzy.setMood();
-    jest.advanceTimersByTime(499);
-    expect(fuzzy.happy).toEqual(true);
-  });
 });

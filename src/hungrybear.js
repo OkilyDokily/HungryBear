@@ -1,41 +1,49 @@
-export class HungryBear {
 
-  constructor(name,difficulty) {
+
+export class HungryBear {
+  //game object is injected rather than imported
+  constructor(name,difficulty,gameObject) {
+    this.game = gameObject;
     this.difficulties = {"easy": {"time":1500,"feed":15},"medium": {"time":1000,"feed":10},"hard":{"time":500,"feed":5}};
     this.name = name;
     this.foodLevel = 10;
     this.difficulty = difficulty;
     this.level = 1;
-    this.happy = true;
+    this.hasBeenPetted = false;
+    this.moodLevel = 0;
   }
 
   increaseLevel(levelIncrease = 1){
     this.level+= levelIncrease;
     this.difficulties[this.difficulty]["time"] -= this.level * 50;
+    clearInterval(this.game.intervalId);
+    this.game.intervalId = this.setMoodAndHunger(); 
   }
 
-  setMood() {//should be created halfway between each hunger interval
-    setInterval(() => {
-      this.happy = false;
-    }, this.difficulties[this.difficulty]["time"]);
-  }
-
-  setHunger() {
-    setInterval(() => {
+  //a lot of logic gets stuffed here: because async
+  setMoodAndHunger() {
+    return setInterval(() => {
       this.foodLevel--;
+      this.moodLevel++;
+      if(this.didYouGetEaten()){
+        this.game.gameOver();
+      }  
     }, this.difficulties[this.difficulty]["time"]);
   }
 
   didYouGetEaten() {
-    if (this.foodLevel > 0 || this.happy === false) {
-      return false;
-    } else {
+    if ((this.foodLevel <= 0) || (this.moodLevel === 5 && this.hasBeenPetted === false)) {
       return true;
+    } else {
+      if(this.moodLevel === 5){
+        this.moodLevel = 0;
+      }
+      return false;
     }
   }
 
   pet(){
-    this.happy = true;
+    this.hasBeenPetted = true;
   }
 
   feed() {
