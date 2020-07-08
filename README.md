@@ -1,5 +1,5 @@
 
-# _Super Galactic Age Calculator_
+# _Hungry Bear_
 
 #### _This demonstrates knowledge of JavaScript and Jest._
 
