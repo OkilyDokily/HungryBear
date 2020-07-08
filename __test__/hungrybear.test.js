@@ -69,6 +69,23 @@ describe('Fuzzy, medium', () => {
     jest.advanceTimersByTime(5001);
     expect(game.hungryBear.level).toEqual(2);
   });
+
+  test("see if wins game if beats all levels except when time is 0 or less", () => {
+    let escape = false;
+    while(!escape){
+      jest.advanceTimersByTime(1);
+      if(game.hungryBear.moodLevel < 4){
+        game.hungryBear.pet();
+      }
+      if(game.hungryBear.foodLevel === 1){
+        game.hungryBear.feed();
+      }
+      if(game.gameWon){
+        escape = true;
+      }
+    }
+    expect(game.gameWon).toEqual(true);
+  });
 });
 
 
@@ -131,6 +148,22 @@ describe('Fuzzy, easy', () => {
     expect(game.hungryBear.level).toEqual(2);
   });
 
+  test("see if wins game if beats all levels except when time is 0 or less", () => {
+    let escape = false;
+    while(!escape){
+      jest.advanceTimersByTime(1);
+      if(game.hungryBear.moodLevel < 4){
+        game.hungryBear.pet();
+      }
+      if(game.hungryBear.foodLevel === 1){
+        game.hungryBear.feed();
+      }
+      if(game.gameWon){
+        escape = true;
+      }
+    }
+    expect(game.gameWon).toEqual(true);
+  });
 });
 
 describe('Fuzzy, hard', () => {
@@ -196,5 +229,22 @@ describe('Fuzzy, hard', () => {
     jest.advanceTimersByTime(1501);
     // expect(game.isGameOver).toEqual(true);
     expect(game.hungryBear.level).toEqual(2);
+  });
+
+  test("see if wins game if beats all levels except when time is 0 or less", () => {
+    let escape = false;
+    while(!escape){
+      jest.advanceTimersByTime(1);
+      if(game.hungryBear.moodLevel < 4){
+        game.hungryBear.pet();
+      }
+      if(game.hungryBear.foodLevel === 1){
+        game.hungryBear.feed();
+      }
+      if(game.gameWon){
+        escape = true;
+      }
+    }
+    expect(game.gameWon).toEqual(true);
   });
 });

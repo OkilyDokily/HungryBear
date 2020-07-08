@@ -11,18 +11,17 @@
 _A page demonstrates basic ES6 and Jest knowledge_
 _Page gives user info about their age on different planets including life expectancy_
 
-
-| Spec                                                                                          | input                                   | output    |
-|-----------------------------------------------------------------------------------------------|-----------------------------------------|-----------|
-| create galactic calculator object                                                             | new GalacticCalculator                  | {}        |
-| create a method that takes an age and decimal value and multiplies them                       | 44, 1.5                                 | 66        |
-| create a mercury method that calls the first method with an inputted age and .24              | 44                                      | 44 *.24   |
-| create a venus method that calls the first method with an inputted age and .62                | 44                                      | 44 * .62  |
-| create a mars method that calls the first method with an inputted age and 1.88                | 44                                      | 44 * 1.88 |
-| create a jupiter method that calls the first method with an inputted age and 11.86            | 44                                      | 44 *11.86 |
-| create a method that takes in a life expectancy value and age and then returns the difference | 44,88                                   | 44        |
-| create a method that determines life expectancy                                               | birth sex country -- exercize etc maybe |           |
-| create methods that determines life expectancy for each planet                                |                                         |           |           
+| spec- game logic                                           | input                             | output                                                                                     |
+|------------------------------------------------------------|-----------------------------------|--------------------------------------------------------------------------------------------|
+| create game object                                         | new Game()                        | Game{}                                                                                     |
+| start game                                                 | game.startGame()                  | run game and collect the interval Id                                                       |
+| run game                                                   |                                   |                                                                                            |
+| create hungry Bear                                         | new HungryBear()                  | HungryBear{}                                                                               |
+| begin hunger and mood routine                              | hungryBear.setMoodAndHunger()     | begin mood and hunger interval Game{intervalId = 3425345}                                  |
+| begin petting routing midway through the setHunger routine | factor petting into main interval | interval runs until isEaten and then calls the game.GameOver();                            |
+| Let the Game come to an End                                |                                   |                                                                                            |
+| game.gameOver() is called from HungryBear                  | game.GameOver()                   | calls the clear interval with the intervalId collected with help from the startgame method |
+|                                                            |                                   |                                                                                            |                                 |           |           
 ## Setup/Installation Requirements
 
 Install node and npm. Clone/download the repo and type 'npm install' inside of a terminal windows in the same directory is the the cloned repo.

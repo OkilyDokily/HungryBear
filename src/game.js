@@ -5,6 +5,7 @@ export class Game{
     this.hungryBear = new HungryBear(name, difficulty, this);
     this.intervalId = NaN;
     this.isGameOver = false;
+    this.gameWon = false;
   }
 
   startGame(){

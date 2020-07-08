@@ -17,7 +17,18 @@ export class HungryBear {
 
   increaseLevel(levelIncrease = 1){
     this.level+= levelIncrease;
-    this.difficulties[this.difficulty]["time"] -= this.level * 50;
+    try{
+      if((this.difficulties[this.difficulty]["time"] - (this.level * 50)) <= 0)
+      {
+        throw Error("That is way too low. So you win by default")
+      }
+      this.difficulties[this.difficulty]["time"] -= this.level * 50;
+    }
+    catch(error){
+      this.game.gameWon = true;
+      this.game.gameOver();
+      return;
+    }
     clearInterval(this.game.intervalId);
     this.game.intervalId = this.setMoodAndHunger(); 
   }
