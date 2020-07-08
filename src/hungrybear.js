@@ -9,8 +9,10 @@ export class HungryBear {
     this.foodLevel = 10;
     this.difficulty = difficulty;
     this.level = 1;
+    this.levelLoop = 0;
     this.hasBeenPetted = false;
     this.moodLevel = 0;
+    
   }
 
   increaseLevel(levelIncrease = 1){
@@ -25,8 +27,14 @@ export class HungryBear {
     return setInterval(() => {
       this.foodLevel--;
       this.moodLevel++;
+      this.levelLoop++;
       if(this.didYouGetEaten()){
         this.game.gameOver();
+      }
+      else
+      if(this.levelLoop === 10){
+        this.levelLoop = 0;
+        this.increaseLevel();
       }  
     }, this.difficulties[this.difficulty]["time"]);
   }

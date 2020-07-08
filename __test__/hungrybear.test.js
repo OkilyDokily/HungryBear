@@ -40,14 +40,12 @@ describe('Fuzzy, medium', () => {
   });
 
   test('increases levels correctly', () => {
-    game.startGame();
     game.hungryBear.increaseLevel();
     jest.advanceTimersByTime(901);
     expect(game.hungryBear.foodLevel).toEqual(9);
   });
 
   test('increases levels correctly', () => {
-    game.startGame();
     game.hungryBear.increaseLevel();
     jest.advanceTimersByTime(899);
     expect(game.hungryBear.foodLevel).toEqual(10);
@@ -64,6 +62,13 @@ describe('Fuzzy, medium', () => {
     expect(game.isGameOver).toEqual(false);
   });
 
+  test("see if game increases level after ten loops", () => {
+    jest.advanceTimersByTime(4999);
+    game.hungryBear.pet();
+    game.hungryBear.feed();
+    jest.advanceTimersByTime(5001);
+    expect(game.hungryBear.level).toEqual(2);
+  });
 });
 
 
@@ -107,20 +112,24 @@ describe('Fuzzy, easy', () => {
   });
 
   test('increases levels correctly', () => {
-    game.startGame();
     game.hungryBear.increaseLevel();
-  
     jest.advanceTimersByTime(1401);
     expect(game.hungryBear.foodLevel).toEqual(9);
   });
 
   test('increases levels correctly', () => {
-    game.startGame();
     game.hungryBear.increaseLevel();
     jest.advanceTimersByTime(1301);
     expect(game.hungryBear.foodLevel).toEqual(10);
   });
 
+  test("see if game increases level after ten loops", () => {
+    jest.advanceTimersByTime(7499);
+    game.hungryBear.pet();
+    game.hungryBear.feed();
+    jest.advanceTimersByTime(7501);
+    expect(game.hungryBear.level).toEqual(2);
+  });
 
 });
 
@@ -164,17 +173,28 @@ describe('Fuzzy, hard', () => {
   });
 
   test('increases levels correctly', () => {
-    game.startGame();
     game.hungryBear.increaseLevel();
     jest.advanceTimersByTime(401);
     expect(game.hungryBear.foodLevel).toEqual(9);
   });
 
   test('increases levels correctly', () => {
-    game.startGame();
     game.hungryBear.increaseLevel();
     jest.advanceTimersByTime(301);
     expect(game.hungryBear.foodLevel).toEqual(10);
   });
 
+  test("see if game increases level after ten loops", () => {
+    jest.advanceTimersByTime(2499);
+    game.hungryBear.pet();
+    game.hungryBear.feed();
+   
+    jest.advanceTimersByTime(1000);
+    
+    game.hungryBear.pet();
+    game.hungryBear.feed();
+    jest.advanceTimersByTime(1501);
+    // expect(game.isGameOver).toEqual(true);
+    expect(game.hungryBear.level).toEqual(2);
+  });
 });
